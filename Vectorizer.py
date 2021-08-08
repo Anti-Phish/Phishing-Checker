@@ -1,3 +1,4 @@
+import joblib
 import pandas
 from sklearn.feature_extraction.text import TfidfVectorizer
 
@@ -24,6 +25,7 @@ class Vectorizer:
     def __init__(self, dataset):
         self.vectorizer = TfidfVectorizer(tokenizer=make_tokens)
         self.vectorizer.fit(pandas.read_csv("CSV Files/phishing_site_urls.csv")["URL"])
+        joblib.dump(self.vectorizer, "vectorizer.joblib")
 
     def transform(self, url):
         return self.vectorizer.transform(url)
