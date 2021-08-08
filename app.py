@@ -5,6 +5,12 @@ from Vectorizer import Vectorizer
 from urllib.parse import urlparse
 
 app = Flask(__name__)
+# db_client = pymongo.MongoClient(
+#     "mongodb+srv://admin:dhioc6uEtNGivrjJ@cluster0.74pvn.mongodb.net/phising-url?retryWrites=true&w=majority")
+# top_sites = db_client["top-mil"]["top-mil"]
+# db = db_client["phising-url"]["phising"]
+# vectorizer = Vectorizer("CSV Files/phishing_site_urls.csv")
+# model = joblib.load("Model/url_model.pkl")
 
 
 @app.route('/')
@@ -14,10 +20,11 @@ def welcome():
 
 @app.route('/check', methods=['POST'])
 def check_url():
-    db_client = pymongo.MongoClient("mongodb+srv://admin:dhioc6uEtNGivrjJ@cluster0.74pvn.mongodb.net/phising-url?retryWrites=true&w=majority")
+    db_client = pymongo.MongoClient(
+        "mongodb+srv://admin:dhioc6uEtNGivrjJ@cluster0.74pvn.mongodb.net/phising-url?retryWrites=true&w=majority")
     top_sites = db_client["top-mil"]["top-mil"]
     db = db_client["phising-url"]["phising"]
-    vectorizer = Vectorizer("CSV Files/phishing_site_urls.csv")
+    # vectorizer = Vectorizer("CSV Files/phishing_site_urls.csv")
     model = joblib.load("Model/url_model.pkl")
     url = request.json["url"]
     domain = urlparse(url).netloc
@@ -31,7 +38,8 @@ def check_url():
         return str(db_check["Ok"])
 
     print("Found from model")
-    return str(model.predict(vectorizer.transform([url])))
+    return "now"
+    # return str(model.predict(vectorizer.transform([url])))
 
 
 if __name__ == '__main__':
