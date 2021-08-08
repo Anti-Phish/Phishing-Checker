@@ -1,17 +1,17 @@
 import joblib
 import pymongo as pymongo
 from flask import Flask, request
-from Vectorizer import Vectorizer
 from urllib.parse import urlparse
 
-app = Flask(__name__)
+
 db_client = pymongo.MongoClient(
     "mongodb+srv://admin:dhioc6uEtNGivrjJ@cluster0.74pvn.mongodb.net/phising-url?retryWrites=true&w=majority")
 top_sites = db_client["top-mil"]["top-mil"]
 db = db_client["phising-url"]["phising"]
-# vectorizer = Vectorizer("CSV Files/phishing_site_urls.csv")
 model = joblib.load("Model/url_model.pkl")
 vectorizer = joblib.load('vectorizer.joblib')
+app = Flask(__name__)
+
 
 
 @app.route('/')
