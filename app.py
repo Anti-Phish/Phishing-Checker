@@ -32,6 +32,7 @@ def welcome():
 @app.route('/check', methods=['POST'])
 def check_url():
     url = request.json["url"]
+    # print(model.predict(vectorizer.transform[url]))
     domain = urlparse(url).netloc
     if top_sites.find_one({"url": domain}):
         print("Top mil site")
@@ -46,7 +47,7 @@ def check_url():
             return {"status": "4"}  # Safe
 
     print("Found from model")
-    if model.predict(vectorizer.transfor[url]) == ['bad']:
+    if model.predict(vectorizer.transform([url])) == ['bad']:
         return {"status": "2"}  # Model identify as phishing link, Hard to confirm
     else:
         return {"status": "3"}  # Model identify as safe
