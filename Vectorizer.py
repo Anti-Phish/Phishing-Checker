@@ -25,7 +25,7 @@ class Vectorizer:
     def __init__(self, dataset):
         self.vectorizer = TfidfVectorizer(tokenizer=make_tokens)
         self.vectorizer.fit(pandas.read_csv("CSV Files/phishing_site_urls.csv")["URL"])
-        joblib.dump(self.vectorizer, "vectorizer.joblib")
+        joblib.dump(self.vectorizer, "Model/vectorizer.joblib")
 
     def transform(self, url):
         return self.vectorizer.transform(url)
