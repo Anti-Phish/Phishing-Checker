@@ -2,7 +2,7 @@ import joblib
 import pymongo as pymongo
 from flask import Flask, request
 from urllib.parse import urlparse
-
+from flask_cors import CORS
 from url_detail_response import UrlResponse
 
 db_client = pymongo.MongoClient(
@@ -12,6 +12,7 @@ db = db_client["phising-url"]["phising"]
 model = joblib.load("Model/url_model.pkl")
 vectorizer = joblib.load('Model/vectorizer.joblib')
 app = Flask(__name__)
+CORS(app)
 
 
 @app.route('/')
