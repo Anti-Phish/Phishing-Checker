@@ -37,7 +37,7 @@ def check_url():
     domain = urlparse(url).netloc
     if top_sites.find_one({"url": domain}):
         print("Top mil site")
-        return UrlResponse(4)
+        return UrlResponse(4).response
         # return {"status": "4"}  # Safe
 
     db_check = db.find_one({"url": url})
