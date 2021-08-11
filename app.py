@@ -3,6 +3,8 @@ import pymongo as pymongo
 from flask import Flask, request
 from urllib.parse import urlparse
 from flask_cors import CORS
+from tldextract import extract
+
 from url_detail_response import UrlResponse
 
 db_client = pymongo.MongoClient(
@@ -35,7 +37,10 @@ def welcome():
 @app.route('/check', methods=['POST'])
 def check_url():
     url = request.json["url"]
-    domain = urlparse(url).netloc
+    # domain = urlparse(url).netloc
+    tsd, td, tsu = extract(url)  # prints abc, hostname, com
+    domain = td + '.' + tsu
+    print(domain)
     if top_sites.find_one({"url": domain}):
         print("Top mil site")
         return UrlResponse(4).response
