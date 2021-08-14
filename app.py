@@ -6,6 +6,7 @@ import pymongo as pymongo
 from flask import Flask, request
 from flask_cors import CORS
 from tldextract import extract
+import requests
 
 from url_detail_response import UrlResponse
 
@@ -22,11 +23,12 @@ CORS(app)
 def ping_server():
     # system("ping https://anti-phishing.herokuapp.com/")
     system("ping https://anti-phishing.herokuapp.com/")
+    requests.get("https://anti-phishing.herokuapp.com/")
     # print("ping")
-    threading.Timer(5, ping_server).start()
+    threading.Timer(60, ping_server).start()
 
 
-threading.Timer(5, ping_server).start()
+threading.Timer(60, ping_server).start()
 
 
 @app.route('/')
