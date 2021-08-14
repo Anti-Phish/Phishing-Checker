@@ -25,10 +25,10 @@ def ping_server():
     system("ping https://anti-phishing.herokuapp.com/")
     requests.get("https://anti-phishing.herokuapp.com/")
     # print("ping")
-    threading.Timer(60, ping_server).start()
+    threading.Timer(360, ping_server).start()
 
 
-threading.Timer(60, ping_server).start()
+threading.Timer(360, ping_server).start()
 
 
 @app.route('/')
