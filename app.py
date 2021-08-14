@@ -1,3 +1,4 @@
+import os
 import threading
 from os import system
 
@@ -10,12 +11,12 @@ import requests
 
 from url_detail_response import UrlResponse
 
-db_client = pymongo.MongoClient(
-    "mongodb+srv://admin:dhioc6uEtNGivrjJ@cluster0.74pvn.mongodb.net/phising-url?retryWrites=true&w=majority")
+# db_client = pymongo.MongoClient("mongodb+srv://admin:dhioc6uEtNGivrjJ@cluster0.74pvn.mongodb.net/phising-url?retryWrites=true&w=majority")A
+db_client = pymongo.MongoClient(os.environ['MONGO'])
 top_sites = db_client["top-mil"]["top-mil"]
 db = db_client["phising-url"]["phising"]
-model = joblib.load("Model/url_model.pkl")
 vectorizer = joblib.load('Model/vectorizer.joblib')
+model = joblib.load("Model/url_model.pkl")
 app = Flask(__name__)
 CORS(app)
 
@@ -50,6 +51,7 @@ def welcome():
 
 @app.route('/check', methods=['POST'])
 def check_url():
+    # model = joblib.load("Model/url_model.pkl")
     url = request.json["url"]
     tsd, td, tsu = extract(url)
     domain = td + '.' + tsu
