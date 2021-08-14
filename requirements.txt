@@ -74,3 +74,4 @@ Werkzeug==2.0.1
 widgetsnbextension==3.5.1
 
 tldextract~=3.1.0
+requests~=2.26.0
