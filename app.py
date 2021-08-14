@@ -1,31 +1,28 @@
 import os
 import threading
 from os import system
-
 import joblib
 import pymongo as pymongo
 from flask import Flask, request
 from flask_cors import CORS
 from tldextract import extract
 import requests
-
+from dotenv import load_dotenv
 from url_detail_response import UrlResponse
 
-# db_client = pymongo.MongoClient("mongodb+srv://admin:dhioc6uEtNGivrjJ@cluster0.74pvn.mongodb.net/phising-url?retryWrites=true&w=majority")A
-db_client = pymongo.MongoClient(os.environ['MONGO'])
-top_sites = db_client["top-mil"]["top-mil"]
-db = db_client["phising-url"]["phising"]
+
+load_dotenv()
+
 vectorizer = joblib.load('Model/vectorizer.joblib')
 model = joblib.load("Model/url_model.pkl")
+db_client = pymongo.MongoClient(os.environ['MONGO'])
 app = Flask(__name__)
 CORS(app)
 
 
 def ping_server():
-    # system("ping https://anti-phishing.herokuapp.com/")
     system("ping https://anti-phishing.herokuapp.com/")
     requests.get("https://anti-phishing.herokuapp.com/")
-    # print("ping")
     threading.Timer(360, ping_server).start()
 
 
@@ -51,7 +48,8 @@ def welcome():
 
 @app.route('/check', methods=['POST'])
 def check_url():
-    # model = joblib.load("Model/url_model.pkl")
+    top_sites = db_client["top-mil"]["top-mil"]
+    db = db_client["phising-url"]["phising"]
     url = request.json["url"]
     tsd, td, tsu = extract(url)
     domain = td + '.' + tsu
