@@ -9,7 +9,7 @@ from tldextract import extract
 import requests
 from dotenv import load_dotenv
 from url_detail_response import UrlResponse
-
+import validators
 
 load_dotenv()
 
@@ -48,12 +48,16 @@ def welcome():
 
 @app.route('/check', methods=['POST'])
 def check_url():
+    url = request.json["url"]
     top_sites = db_client["top-mil"]["top-mil"]
     db = db_client["phising-url"]["phising"]
-    url = request.json["url"]
     tsd, td, tsu = extract(url)
     domain = td + '.' + tsu
     print(domain)
+    if not validators.domain(domain):
+        # return "bad request", 400
+        return UrlResponse(0).response
+
     if top_sites.find_one({"url": domain}):
         print("Top mil site")
         return UrlResponse(4).response  # Safe

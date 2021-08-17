@@ -2,7 +2,8 @@ import flask
 
 
 class UrlResponse:
-    code_meaning = {1: ["Dangerous", "Detected from database"],
+    code_meaning = {0: ["Invalid url", ""],
+                    1: ["Dangerous", "Detected from database"],
                     2: ["Unsafe", "Detected from model"],
                     3: ["Generally safe", " Detected From model"],
                     4: ["Safe", "Detected from database"]}
