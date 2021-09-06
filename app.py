@@ -8,7 +8,6 @@ from flask_cors import CORS
 from tldextract import extract
 import requests
 from dotenv import load_dotenv
-
 from Models.FeedbackModel import FeedbackModel
 from Models.url_detail_response import UrlResponse
 import validators
@@ -19,6 +18,7 @@ load_dotenv()
 vectorizer = joblib.load('ML_Models/vectorizer.joblib')
 model = joblib.load("ML_Models/url_model.pkl")
 db_client = pymongo.MongoClient(os.environ['MONGO'])
+print(db_client)
 
 app = Flask(__name__)
 CORS(app)
@@ -104,11 +104,12 @@ feedback_schema = {
 @app.route('/feedback', methods=['POST'])
 @expects_json(feedback_schema)
 def feedback():
-    db = db_client["phising-url"]["feedbacks"]
+    db = db_client["phising-url"]["feedback"]
     obj = FeedbackModel(request.json["name"],
                         request.json["email"],
                         request.json["subject"],
                         request.json["comment"]).feedback
+    print(obj)
     db.insert_one(obj)
     return {"status": "received"}
 
