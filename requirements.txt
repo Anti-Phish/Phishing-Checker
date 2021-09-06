@@ -3,7 +3,9 @@ async-generator==1.10
 attrs==21.2.0
 backcall==0.2.0
 bleach==4.0.0
+certifi==2021.5.30
 cffi==1.14.6
+charset-normalizer==2.0.4
 click==8.0.1
 cryptography==3.4.7
 debugpy==1.4.1
@@ -11,9 +13,12 @@ decorator==5.0.9
 defusedxml==0.7.1
 dnspython==1.16.0
 entrypoints==0.3
+filelock==3.0.12
 Flask==2.0.1
 Flask-Cors==3.0.10
+flask-expects-json==1.6.0
 gunicorn==20.1.0
+idna==3.2
 ipykernel==6.0.3
 ipython==7.26.0
 ipython-genutils==0.2.0
@@ -22,6 +27,7 @@ itsdangerous==2.0.1
 jedi==0.18.0
 Jinja2==3.0.1
 joblib==1.0.1
+jsonfy==0.4
 jsonschema==3.2.0
 jupyter==1.0.0
 jupyter-client==6.1.12
@@ -54,10 +60,13 @@ pyOpenSSL==20.0.1
 pyparsing==2.4.7
 pyrsistent==0.18.0
 python-dateutil==2.8.2
+python-dotenv @ https://github.com/theskumar/python-dotenv/archive/master.zip
 pytz==2021.1
 pyzmq==22.2.1
 qtconsole==5.1.1
 QtPy==1.9.0
+requests==2.26.0
+requests-file==1.5.1
 scikit-learn==0.24.2
 scipy==1.7.1
 Send2Trash==1.7.1
@@ -65,13 +74,14 @@ six==1.16.0
 terminado==0.10.1
 testpath==0.5.0
 threadpoolctl==2.2.0
+tldextract==3.1.0
 tornado==6.1
 traitlets==5.0.5
+urllib3==1.26.6
 validators==0.18.2
 wcwidth==0.2.5
 webencodings==0.5.1
 Werkzeug==2.0.1
 widgetsnbextension==3.5.1
-tldextract~=3.1.0
-requests~=2.26.0
+
 python-dotenv~=0.19.0
