@@ -18,14 +18,14 @@ load_dotenv()
 vectorizer = joblib.load('ML_Models/vectorizer.joblib')
 model = joblib.load("ML_Models/url_model.pkl")
 db_client = pymongo.MongoClient(os.environ['MONGO'])
-print(db_client)
 
 app = Flask(__name__)
 CORS(app)
 
 
 def ping_server():
-    requests.get("https://anti-phishing.herokuapp.com/")
+    requests.get("https://knowb4-backend-api.herokuapp.com/")
+    requests.get("https://anti-phish-frontend.herokuapp.com/")
     threading.Timer(360, ping_server).start()
 
 
@@ -109,7 +109,6 @@ def feedback():
                         request.json["email"],
                         request.json["subject"],
                         request.json["comment"]).feedback
-    print(obj)
     db.insert_one(obj)
     return {"status": "received"}
 
