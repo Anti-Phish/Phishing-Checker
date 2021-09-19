@@ -24,7 +24,7 @@ CORS(app)
 
 
 def ping_server():
-    requests.get("https://anti-phishing.herokuapp.com/")
+    requests.get("https://knowb4-backend-api.herokuapp.com/")
     requests.get("https://anti-phish-frontend.herokuapp.com/")
     threading.Timer(360, ping_server).start()
 
